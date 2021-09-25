@@ -153,3 +153,49 @@ time to modify your CSS, import things like [Bootstrap], etc. Go wild!
 [array-map]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
 [array-slice]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
 [Bootstrap]:https://getbootstrap.com/
+
+## Step 4: Add game logic
+
+What computation (or algorithm) do you need to perform to determine when the
+game is over? For example, you can win Tic Tac Toe in the following ways:
+
+- Any row is all `"X"`s or `"0"`s
+- Any column is all `"X"`s or `"0"`s
+- Either diagonal is all `"X"`s or `"0"`s
+
+We could write out the entire "win check" as a giant conditional!
+
+```
+let isWinner = function(x) {
+  return grid[0] === x && grid[1] === x && grid[2] === x  // Row 1
+      || grid[3] === x && grid[4] === x && grid[5] === x  // Row 2
+      || grid[6] === x && grid[7] === x && grid[8] === x  // Row 3
+      || grid[0] === x && grid[3] === x && grid[6] === x  // Column 1
+      || grid[1] === x && grid[4] === x && grid[7] === x  // Column 2
+      || grid[2] === x && grid[5] === x && grid[8] === x  // Column 3
+      || grid[0] === x && grid[4] === x && grid[8] === x  // Diagonal 1
+      || grid[2] === x && grid[4] === x && grid[6] === x; // Diagonal 2
+}
+```
+
+Then we change what we render based on this algorithm:
+
+```
+if (isWinner("X")) {
+  return <div className="App">Player X wins!</div>;
+} else if (isWinner("O")) {
+  return <div className="App">Player O wins!</div>;
+} else {
+  return (
+    <div className="App">
+      <div>Current player: {currentPlayer}</div>
+
+      <div>{gridElements.slice(0, 3)}</div>
+      <div>{gridElements.slice(3, 6)}</div>
+      <div>{gridElements.slice(6, 9)}</div>
+    </div>
+  );
+}
+```
+
+Now we can actually play a full game of Tic Tac Toe!
