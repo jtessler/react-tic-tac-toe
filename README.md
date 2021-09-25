@@ -122,3 +122,34 @@ Now try pressing some buttons and watch their labels change as well as the
 "Current player" value!
 
 [flowchart]:https://en.wikipedia.org/wiki/Flowchart
+
+## Step 3: Build the user interface
+
+Now that we have our state manipulation up and running, let's get creative and
+make it look like a real game! For Tic Tac Toe, that means replacing our list
+of spots with an actual three-by-three grid.
+
+This is a good opportunity to replace our handwritten list with an array
+[`map()`][array-map] call!
+
+```
+let gridElements = grid.map((spotValue, i) =>
+   <button onClick={() => onSpotClicked(i)}>{spotValue}</button>
+);
+```
+
+Then we can take advantage of the array [`slice()`][array-slice] method to
+render three rows of three spots each:
+
+```
+<div>{gridElements.slice(0, 3)}</div>
+<div>{gridElements.slice(3, 6)}</div>
+<div>{gridElements.slice(6, 9)}</div>
+```
+
+Now we have something that actually looks like Tic Tac Toe! This is also a good
+time to modify your CSS, import things like [Bootstrap], etc. Go wild!
+
+[array-map]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+[array-slice]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
+[Bootstrap]:https://getbootstrap.com/
