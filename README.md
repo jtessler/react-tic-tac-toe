@@ -67,3 +67,58 @@ function App() {
   );
 }
 ```
+
+## Step 2: Add event handlers
+
+Think about how players interact with your game. What is their action and what
+is the effect? Think of it like a cooking recipe or a [flowchart]. An example
+move in Tic Tac Toe could be described as follows:
+
+- Player `"X"` clicks on an unused spot
+- The spot's state changes from a blank `" "` to either `"X"` or `"O"`
+- The spot becomes uneditable
+- The current player changes to player `"O"`
+
+Given this "spot" is an actionable thing, it makes sense to make each of these
+a `<button>`:
+
+```
+function App() {
+  let [currentPlayer, setCurrentPlayer] = useState("X");
+  let [grid, setGrid] = useState([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
+
+  return (
+    <div className="App">
+      <div>Current player: {currentPlayer}</div>
+
+      <div>Spot 1: <button>{grid[0]}</button></div>
+      ...
+    </div>
+  );
+}
+```
+
+Now we define a click handler that performs the actions we listed above:
+
+```
+let onSpotClicked = function(i) {
+  grid[i] = currentPlayer;
+  setGrid(grid);
+  if (currentPlayer === "X") {
+    setCurrentPlayer("O");
+  } else {
+    setCurrentPlayer("X");
+  }
+};
+```
+
+And update the rendered `<button>`s to call the click handler, for example:
+
+```
+<div>Spot 1: <button onClick={() => onSpotClicked(0)}>{grid[0]}</button></div>
+```
+
+Now try pressing some buttons and watch their labels change as well as the
+"Current player" value!
+
+[flowchart]:https://en.wikipedia.org/wiki/Flowchart
