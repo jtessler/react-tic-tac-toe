@@ -267,4 +267,67 @@ if (isWinner("X")) {
 
 ### Edge case 3: Add a reset button to restart the game at any point
 
-TODO: Fix edge case 3
+How do you start your game over from the beginning? It's as simple as setting
+your game state back to the original values at the start of this project. For
+Tic Tac Toe, that means looking back at the `useState()` calls:
+
+```
+let [currentPlayer, setCurrentPlayer] = useState("X");
+let [grid, setGrid] = useState([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
+```
+
+So a reset button click handler could look like:
+
+```
+let onResetClicked = function() {
+  setCurrentPlayer("X");
+  setGrid([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
+};
+```
+
+We can create a reset button as follows:
+
+```
+let resetElement = <button onClick={() => onResetClicked()}>Reset</button>;
+```
+
+Then append this to our four different rendered pages:
+
+```
+if (isWinner("X")) {
+  return (
+    <div className="App">
+      <h1>Player X wins!</h1>
+      <div>{resetElement}</div>
+    </div>
+  );
+} else if (isWinner("O")) {
+  return (
+    <div className="App">
+      <h1>Player X wins!</h1>
+      <div>{resetElement}</div>
+    </div>
+  );
+} else if (isDraw) {
+  return (
+    <div className="App">
+      <h1>Draw!</h1>
+      <div>{resetElement}</div>
+    </div>
+  );
+} else {
+  return (
+    <div className="App">
+      <div>Current player: {currentPlayer}</div>
+
+      <div>{gridElements.slice(0, 3)}</div>
+      <div>{gridElements.slice(3, 6)}</div>
+      <div>{gridElements.slice(6, 9)}</div>
+
+      <div>{resetElement}</div>
+    </div>
+  );
+}
+```
+
+Now players can press the reset button at any time to start over.

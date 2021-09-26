@@ -15,6 +15,11 @@ function App() {
     }
   };
 
+  let onResetClicked = function() {
+    setCurrentPlayer("X");
+    setGrid([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
+  };
+
   let gridElements = grid.map((spotValue, i) =>
     <button disabled={spotValue !== " "} onClick={() => onSpotClicked(i)}>
       {spotValue}
@@ -34,12 +39,29 @@ function App() {
 
   let isDraw = grid.every(spotValue => spotValue !== " ");
 
+  let resetElement = <button onClick={() => onResetClicked()}>Reset</button>;
+
   if (isWinner("X")) {
-    return <div className="App">Player X wins!</div>;
+    return (
+      <div className="App">
+        <h1>Player X wins!</h1>
+        <div>{resetElement}</div>
+      </div>
+    );
   } else if (isWinner("O")) {
-    return <div className="App">Player O wins!</div>;
+    return (
+      <div className="App">
+        <h1>Player X wins!</h1>
+        <div>{resetElement}</div>
+      </div>
+    );
   } else if (isDraw) {
-    return <div className="App">Draw!</div>;
+    return (
+      <div className="App">
+        <h1>Draw!</h1>
+        <div>{resetElement}</div>
+      </div>
+    );
   } else {
     return (
       <div className="App">
@@ -48,6 +70,8 @@ function App() {
         <div>{gridElements.slice(0, 3)}</div>
         <div>{gridElements.slice(3, 6)}</div>
         <div>{gridElements.slice(6, 9)}</div>
+
+        <div>{resetElement}</div>
       </div>
     );
   }
