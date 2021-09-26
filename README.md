@@ -32,7 +32,7 @@ game end? The answers for Tic Tac Toe are as follows:
 
 Tic Tac Toe can therefore be reduced to the following **two state variables**:
 
-```
+```javascript
 let [currentPlayer, setCurrentPlayer] = useState("X");
 let [grid, setGrid] = useState([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
 ```
@@ -45,7 +45,7 @@ let [grid, setGrid] = useState([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
 Using the state we designed above, create a component that initializes it and
 renders every state value. Warning: this won't look very pretty!
 
-```
+```javascript
 function App() {
   let [currentPlayer, setCurrentPlayer] = useState("X");
   let [grid, setGrid] = useState([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
@@ -82,7 +82,7 @@ move in Tic Tac Toe could be described as follows:
 Given this "spot" is an actionable thing, it makes sense to make each of these
 a `<button>`:
 
-```
+```javascript
 function App() {
   let [currentPlayer, setCurrentPlayer] = useState("X");
   let [grid, setGrid] = useState([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
@@ -100,7 +100,7 @@ function App() {
 
 Now we define a click handler that performs the actions we listed above:
 
-```
+```javascript
 let onSpotClicked = function(i) {
   grid[i] = currentPlayer;
   setGrid(grid);
@@ -114,7 +114,7 @@ let onSpotClicked = function(i) {
 
 And update the rendered `<button>`s to call the click handler, for example:
 
-```
+```javascript
 <div>Spot 1: <button onClick={() => onSpotClicked(0)}>{grid[0]}</button></div>
 ```
 
@@ -132,7 +132,7 @@ of spots with an actual three-by-three grid.
 This is a good opportunity to replace our handwritten list with an array
 [`map()`][array-map] call!
 
-```
+```javascript
 let gridElements = grid.map((spotValue, i) =>
    <button onClick={() => onSpotClicked(i)}>{spotValue}</button>
 );
@@ -141,7 +141,7 @@ let gridElements = grid.map((spotValue, i) =>
 Then we can take advantage of the array [`slice()`][array-slice] method to
 render three rows of three spots each:
 
-```
+```javascript
 <div>{gridElements.slice(0, 3)}</div>
 <div>{gridElements.slice(3, 6)}</div>
 <div>{gridElements.slice(6, 9)}</div>
@@ -165,7 +165,7 @@ game is over? For example, you can win Tic Tac Toe in the following ways:
 
 We could write out the entire "win check" as a giant conditional!
 
-```
+```javascript
 let isWinner = function(x) {
   return grid[0] === x && grid[1] === x && grid[2] === x  // Row 1
       || grid[3] === x && grid[4] === x && grid[5] === x  // Row 2
@@ -180,7 +180,7 @@ let isWinner = function(x) {
 
 Then we change what we render based on this algorithm:
 
-```
+```javascript
 if (isWinner("X")) {
   return <div className="App">Player X wins!</div>;
 } else if (isWinner("O")) {
@@ -221,7 +221,7 @@ attribute on the `<button>` element. We can set this to `true` if the button
 value is anything but blank (`" "`). Notice the addition of the `spotValue !==
 " "` conditional in the array `map()` call below:
 
-```
+```javascript
 let gridElements = grid.map((spotValue, i) =>
   <button disabled={spotValue !== " "} onClick={() => onSpotClicked(i)}>
     {spotValue}
@@ -239,13 +239,13 @@ one is even simpler. A game ends in a draw if _every_ spot is not equal to
 blank (`" "`). Here we'll take advantage of the array `every()` method to make
 this a one-liner!
 
-```
+```javascript
 let isDraw = grid.every(spotValue => spotValue !== " ");
 ```
 
 Then we add another else-if statement after checking for winners:
 
-```
+```javascript
 if (isWinner("X")) {
   return <div className="App">Player X wins!</div>;
 } else if (isWinner("O")) {
@@ -271,14 +271,14 @@ How do you start your game over from the beginning? It's as simple as setting
 your game state back to the original values at the start of this project. For
 Tic Tac Toe, that means looking back at the `useState()` calls:
 
-```
+```javascript
 let [currentPlayer, setCurrentPlayer] = useState("X");
 let [grid, setGrid] = useState([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
 ```
 
 So a reset button click handler could look like:
 
-```
+```javascript
 let onResetClicked = function() {
   setCurrentPlayer("X");
   setGrid([" ", " ", " ", " ", " ", " ", " ", " ", " "]);
@@ -287,13 +287,13 @@ let onResetClicked = function() {
 
 We can create a reset button as follows:
 
-```
+```javascript
 let resetElement = <button onClick={() => onResetClicked()}>Reset</button>;
 ```
 
 Then append this to our four different rendered pages:
 
-```
+```javascript
 if (isWinner("X")) {
   return (
     <div className="App">
