@@ -32,10 +32,14 @@ function App() {
         || grid[2] === x && grid[4] === x && grid[6] === x; // Diagonal 2
   }
 
+  let isDraw = grid.every(spotValue => spotValue !== " ");
+
   if (isWinner("X")) {
     return <div className="App">Player X wins!</div>;
   } else if (isWinner("O")) {
     return <div className="App">Player O wins!</div>;
+  } else if (isDraw) {
+    return <div className="App">Draw!</div>;
   } else {
     return (
       <div className="App">

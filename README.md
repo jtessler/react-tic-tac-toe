@@ -234,7 +234,36 @@ become uneditable because of the `disabled=true` attribute.
 
 ### Edge case 2: Determine if the game ended in a draw
 
-TODO: Fix edge case 2
+We can use a similar algorithm as used for determining a game winner, but this
+one is even simpler. A game ends in a draw if _every_ spot is not equal to
+blank (`" "`). Here we'll take advantage of the array `every()` method to make
+this a one-liner!
+
+```
+let isDraw = grid.every(spotValue => spotValue !== " ");
+```
+
+Then we add another else-if statement after checking for winners:
+
+```
+if (isWinner("X")) {
+  return <div className="App">Player X wins!</div>;
+} else if (isWinner("O")) {
+  return <div className="App">Player O wins!</div>;
+} else if (isDraw) {
+  return <div className="App">Draw!</div>;
+} else {
+  return (
+    <div className="App">
+      <div>Current player: {currentPlayer}</div>
+
+      <div>{gridElements.slice(0, 3)}</div>
+      <div>{gridElements.slice(3, 6)}</div>
+      <div>{gridElements.slice(6, 9)}</div>
+    </div>
+  );
+}
+```
 
 ### Edge case 3: Add a reset button to restart the game at any point
 
