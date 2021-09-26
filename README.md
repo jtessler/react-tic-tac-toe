@@ -199,3 +199,43 @@ if (isWinner("X")) {
 ```
 
 Now we can actually play a full game of Tic Tac Toe!
+
+## Step 5: Handle edge cases
+
+Although we can now _basically_ play our game end-to-end, there are a lot of
+ways to get stuck, break the rules, or "glitch" out. For Tic Tac Toe, these
+include:
+
+- A player can override a spot, e.g. change an `"X"` to an `"0"`
+- There's no indication that the game ends in a draw, i.e., all spots are
+  occupied without a winner
+- There's no way to reset the game after it's started (or ended)
+
+Your game will likely have similar issues, which we'll call "edge cases". This
+section will show you how to go about fixing them for Tic Tac Toe:
+
+### Edge case 1: Prevent editing a slot after it's assigned a value
+
+An easy way to prevent the player from editing a spot is to use the `disabled`
+attribute on the `<button>` element. We can set this to `true` if the button
+value is anything but blank (`" "`). Notice the addition of the `spotValue !==
+" "` conditional in the array `map()` call below:
+
+```
+let gridElements = grid.map((spotValue, i) =>
+  <button disabled={spotValue !== " "} onClick={() => onSpotClicked(i)}>
+    {spotValue}
+  </button>
+);
+```
+
+Now whenever a player assigns an `"X"` or an `"O"` to any spot, the button will
+become uneditable because of the `disabled=true` attribute.
+
+### Edge case 2: Determine if the game ended in a draw
+
+TODO: Fix edge case 2
+
+### Edge case 3: Add a reset button to restart the game at any point
+
+TODO: Fix edge case 3

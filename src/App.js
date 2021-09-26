@@ -16,7 +16,9 @@ function App() {
   };
 
   let gridElements = grid.map((spotValue, i) =>
-     <button onClick={() => onSpotClicked(i)}>{spotValue}</button>
+    <button disabled={spotValue !== " "} onClick={() => onSpotClicked(i)}>
+      {spotValue}
+    </button>
   );
 
   let isWinner = function(x) {
