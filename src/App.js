@@ -51,7 +51,7 @@ function App() {
   } else if (isWinner("O")) {
     return (
       <div className="App">
-        <h1>Player X wins!</h1>
+        <h1>Player O wins!</h1>
         <div>{resetElement}</div>
       </div>
     );
